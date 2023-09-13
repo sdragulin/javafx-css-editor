@@ -2,9 +2,9 @@ package org.sk.fxcss;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
+
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableObjectValue;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -45,17 +44,17 @@ public class InsertSnippetComponent extends AnchorPane {
     }
     @FXML
     public void initialize(){
-        snippetListView.setCellFactory(new Callback<ListView<Snippet>, ListCell<Snippet>>() {
+        snippetListView.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Snippet> call(ListView<Snippet> snippetListView) {
-                return new ListCell<>(){
+                return new ListCell<>() {
                     @Override
                     protected void updateItem(Snippet snippet, boolean b) {
                         super.updateItem(snippet, b);
-                        if(!b){
+                        if (!b) {
                             setText(null);
                             setGraphic(new SnippetListCell(snippet));
-                        }else {
+                        } else {
                             setGraphic(null);
                             setText(null);
                         }
@@ -77,12 +76,9 @@ public class InsertSnippetComponent extends AnchorPane {
         Scene scene=new Scene(this,this.getPrefWidth(),this.getPrefHeight());
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
-        insertButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                selectedObject.setValue(snippetListView.getSelectionModel().getSelectedItem());
-                stage.close();
-            }
+        insertButton.setOnAction(actionEvent -> {
+            selectedObject.setValue(snippetListView.getSelectionModel().getSelectedItem());
+            stage.close();
         });
         closeButton.setOnAction((e)-> stage.close());
         stage.showAndWait();
@@ -93,10 +89,7 @@ public class InsertSnippetComponent extends AnchorPane {
         private TextFlow name;
         private TextFlow description;
         private TextFlow   content;
-        public SnippetListCell() {
-            super();
-            init();
-        }
+
         public SnippetListCell(Snippet snip){
             super();
             init();

@@ -1,8 +1,6 @@
 package org.sk.fxcss;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +21,7 @@ public class SaveSnippetComponent extends AnchorPane {
     public CodeArea contentField;
     public Button saveButton;
     public Button cancelButton;
-    private String snippet;
+    private final String snippet;
 
     public SaveSnippetComponent(String snippet) throws IOException {
         this.snippet=snippet;
@@ -55,7 +53,7 @@ public class SaveSnippetComponent extends AnchorPane {
     public void cancel(){
         stage.close();
     }
-    private Stage stage=new Stage();
+    private final Stage  stage=new Stage();
     public void showSaveSnippetDialog(){
 
         Scene scene=new Scene(this,this.getPrefWidth(),this.getPrefHeight());

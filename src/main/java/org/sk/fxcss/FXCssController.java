@@ -1,14 +1,10 @@
 package org.sk.fxcss;
 
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
+
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,12 +13,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 import org.fxmisc.richtext.CodeArea;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -32,8 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,19 +44,19 @@ public class FXCssController {
     public MenuItem aboutMenuItem;
     private AppState state;
 
-    private KeyCombination closeKC=new KeyCodeCombination(KeyCode.Q,KeyCombination.CONTROL_DOWN);
-    private KeyCombination newKC=new KeyCodeCombination(KeyCode.N,KeyCombination.CONTROL_DOWN);
-    private KeyCombination cutKC=new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN);
-    private KeyCombination copyKC=new KeyCodeCombination(KeyCode.C,KeyCombination.CONTROL_DOWN);
-    private KeyCombination pasteKC=new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN);
-    private KeyCombination undoKC=new KeyCodeCombination(KeyCode.Z,KeyCombination.CONTROL_DOWN);
-    private KeyCombination redoKC=new KeyCodeCombination(KeyCode.Y,KeyCombination.CONTROL_DOWN);
-    private KeyCombination insertSnippetKC=new KeyCodeCombination(KeyCode.I,KeyCombination.CONTROL_DOWN);
-    private KeyCombination saveSnippetKC=new KeyCodeCombination(KeyCode.D,KeyCombination.CONTROL_DOWN);
-    private KeyCombination applyStyleKC=new KeyCodeCombination(KeyCode.S,KeyCombination.CONTROL_DOWN);
-    private KeyCombination saveAsKC=new KeyCodeCombination(KeyCode.W,KeyCombination.CONTROL_DOWN);
-    private KeyCombination openKC=new KeyCodeCombination(KeyCode.O,KeyCombination.CONTROL_DOWN);
-    private KeyCombination aboutKC=new KeyCodeCombination(KeyCode.H,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination closeKC=new KeyCodeCombination(KeyCode.Q,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination newKC=new KeyCodeCombination(KeyCode.N,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination cutKC=new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination copyKC=new KeyCodeCombination(KeyCode.C,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination pasteKC=new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination undoKC=new KeyCodeCombination(KeyCode.Z,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination redoKC=new KeyCodeCombination(KeyCode.Y,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination insertSnippetKC=new KeyCodeCombination(KeyCode.I,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination saveSnippetKC=new KeyCodeCombination(KeyCode.D,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination applyStyleKC=new KeyCodeCombination(KeyCode.S,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination saveAsKC=new KeyCodeCombination(KeyCode.W,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination openKC=new KeyCodeCombination(KeyCode.O,KeyCombination.CONTROL_DOWN);
+    private final KeyCombination aboutKC=new KeyCodeCombination(KeyCode.H,KeyCombination.CONTROL_DOWN);
 
 
     private final BooleanProperty savedProperty =new SimpleBooleanProperty(false);
@@ -146,12 +138,7 @@ public class FXCssController {
                 throw new RuntimeException(e);
             }
         });
-        mainEditor.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                changedProperty.setValue(true);
-            }
-        });
+        mainEditor.textProperty().addListener((observableValue, s, t1) -> changedProperty.setValue(true));
     }
     private void showSaveSnippetDialog() {
         String value = mainEditor.selectedTextProperty().getValue();
@@ -174,9 +161,9 @@ public class FXCssController {
     /**
      *
      * @return The file URI
-     * @throws URISyntaxException
+     *
      */
-    private URI getFileURI() throws URISyntaxException, IOException {
+    private URI getFileURI() throws URISyntaxException {
         String protocol="file://";
         return new URI(protocol+editingFileProperty.get().getAbsolutePath());
     }
@@ -198,7 +185,7 @@ public class FXCssController {
         if(f.exists()){
             try {
                 List<String> strings = Files.readAllLines(Path.of(f.toURI()));
-                strings.forEach((s -> {mainEditor.appendText(s+"\n");}));
+                strings.forEach((s -> mainEditor.appendText(s+"\n")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -288,14 +275,13 @@ public class FXCssController {
     }
 
     /***
-     *
      * MENU ACTIONS
      *
      **/
-    public void close(ActionEvent actionEvent) {
+    public void close() {
         System.exit(0);
     }
-    public void openStyle(ActionEvent actionEvent) {
+    public void openStyle() {
         FileChooser fileChooser=new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.getExtensionFilters()
@@ -303,7 +289,7 @@ public class FXCssController {
         File file = fileChooser.showOpenDialog(state.getMainStage());
         editingFileProperty.setValue(file);
     }
-    public void newStyle(ActionEvent actionEvent){
+    public void newStyle(){
         if(!savedProperty.get()){
             try {
                 saveAsStyle();
