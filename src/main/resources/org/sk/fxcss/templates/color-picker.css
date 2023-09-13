@@ -1,0 +1,134 @@
+.color-picker {
+}
+
+.color-picker .arrow-button {
+}
+
+.color-picker .color-picker-label .text {
+}
+
+.color-picker .split-button .arrow-button {
+}
+
+.color-picker:hover {
+}
+
+.color-picker .split-button .arrow-button:hover {
+}
+
+.color-picker .split-button .color-picker-label:hover {
+}
+
+.color-picker .picker-color {
+}
+
+.color-picker .picker-color .picker-color-rect {
+}
+
+.color-palette {
+}
+
+.color-palette .color-rect {
+}
+
+.color-palette .color-picker-grid {
+}
+
+.color-palette .color-square {
+}
+/* the color over which the user is hovering */
+.color-palette .color-square:focused, .color-palette .color-square:selected:focused {
+}
+
+/* the currently selected color */
+.color-palette .color-square:selected {
+}
+
+.color-palette .separator .line {
+}
+.custom-color-dialog .color-rect-pane {
+}
+
+.custom-color-dialog .controls-pane {
+}
+.custom-color-dialog  {
+}
+/* -------- Toggle Button ---------------- */
+.custom-color-dialog .controls-pane .toggle-button {
+}
+
+.custom-color-dialog .controls-pane .toggle-button:focused {
+}
+.custom-color-dialog .controls-pane .toggle-button:selected Text {
+}
+
+.custom-color-dialog .controls-pane .toggle-button:selected {
+}
+.custom-color-dialog .controls-pane #toggle-button-left {
+}
+.custom-color-dialog .controls-pane #toggle-button-left:focused {
+}
+.custom-color-dialog .controls-pane #toggle-button-left:selected, .controls-pane #toggle-button-left:selected:focused {
+}
+.custom-color-dialog .controls-pane #toggle-button-center {
+}
+.custom-color-dialog .controls-pane #toggle-button-center:focused {
+}
+.custom-color-dialog .controls-pane #toggle-button-center:selected, .controls-pane #toggle-button-center:selected:focused {
+}
+
+.custom-color-dialog .controls-pane #toggle-button-right {
+}
+.custom-color-dialog .controls-pane #toggle-button-right:focused {
+}
+.custom-color-dialog .controls-pane #toggle-button-right:selected, .controls-pane #toggle-button-right:selected:focused {
+}
+
+.custom-color-dialog .controls-pane .current-new-color-grid #transparent-current, .controls-pane .current-new-color-grid #transparent-new {
+}
+
+.custom-color-dialog .controls-pane .customcolor-controls-background {
+}
+
+.custom-color-dialog .controls-pane .alpha-settings .text-field {
+}
+
+.custom-color-dialog .controls-pane .current-new-color-grid .label {
+}
+
+.custom-color-dialog #input-text-field {
+}
+
+.custom-color-dialog .input-field {
+}
+
+.custom-color-dialog .input-field:focused {
+}
+
+.custom-color-dialog .input-field:disabled {
+}
+
+.custom-color-dialog .integer-field {
+}
+
+.custom-color-dialog .integer-field:focused {
+}
+
+.custom-color-dialog .double-field {
+}
+
+.custom-color-dialog .double-field:focused {
+}
+
+.custom-color-dialog .double-field:disabled {
+}
+
+
+.custom-color-dialog .webcolor-field {
+}
+
+.custom-color-dialog .webcolor-field:focused {
+}
+
+.custom-color-dialog .webcolor-field:disabled {
+}

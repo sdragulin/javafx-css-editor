@@ -1,0 +1,52 @@
+.combo-box-base  {
+}
+
+.combo-box-base:hover {
+}
+
+/*------- THIS SPECIFIES THE BUTTON COLOR WHEN THE POPUP MENU IS SHOWING -------*/
+.combo-box-base:showing {
+}
+
+.combo-box-base:focused {
+}
+
+.combo-box-base:disabled {
+}
+
+/* ------- OPEN BUTTON ------- */
+.combo-box-base .arrow-button {
+}
+
+/* ------- ARROW* ------- */
+.combo-box-base .arrow {
+}
+
+.combo-box-base:editable .text-field {
+}
+
+.combo-box-base:editable .text-field:focused {
+}
+
+.combo-box-base:editable:focused {
+}
+
+/* -------------- STYLES FOR THE DEFAULT LISTVIEW-BASED COMBOBOX ------------- */
+.combo-box {
+}
+
+/* Customie the ListCell that appears in the ComboBox button itself */
+.combo-box .list-cell {
+}
+
+.combo-box-popup .list-view {
+}
+
+.combo-box-popup .list-view .list-cell {
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+}

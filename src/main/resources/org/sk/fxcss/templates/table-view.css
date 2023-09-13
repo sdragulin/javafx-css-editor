@@ -1,0 +1,143 @@
+
+.table-view {
+}
+
+/** Draws focus border around tableview */
+.table-view:focused {
+}
+
+.table-view:disabled {
+}
+
+.table-view .scroll-bar:vertical{
+}
+
+.table-view .scroll-bar:horizontal{
+}
+
+.table-view .corner {
+}
+
+/* Each row in the table is a table-row-cell. Inside a table-row-cell is any
+   number of table-cell. */
+.table-row-cell {
+}
+
+.table-row-cell:odd {
+}
+
+.table-row-cell:focused {
+}
+
+.table-row-cell:focused:odd {
+}
+
+/* When the table-row-cell is selected and focused */
+.table-view:focused .table-row-cell:filled:focused:selected {
+}
+
+.table-view:focused .table-row-cell:filled:selected .table-cell {
+}
+
+.table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected:hover {
+}
+
+/* When the TableView is _not_ focused, we show alternate selection colors */
+.table-row-cell:filled:selected:focused, .table-row-cell:filled:selected {
+}
+
+.table-row-cell:selected:disabled {
+}
+
+.table-view:row-selection .table-row-cell:filled:hover {
+}
+
+.table-view:row-selection .table-row-cell:filled:focused:hover {
+}
+
+.table-cell {
+}
+
+/* When in constrained resize mode, the right-most visible cell should not have
+   a right-border, as it is not possible to get this cleanly out of view without
+   introducing horizontal scrollbars (see RT-14886). */
+.table-view:constrained-resize .table-cell:last-visible {
+}
+.table-view:constrained-resize .column-header:last-visible {
+}
+.table-view:constrained-resize .filler {
+}
+
+.table-view:focused .table-cell:focused {
+}
+
+.table-view:focused .table-row-cell:filled .table-cell:focused:selected {
+}
+
+.table-view:focused .table-row-cell:filled .table-cell:selected, .table-view:cell-selection .table-row-cell:filled .table-cell:hover:selected {
+}
+
+.table-view:focused .table-row-cell:filled .table-cell:focused:selected:hover {
+}
+
+/* When the TableView is _not_ focused, we show alternate selection colors */
+ .table-row-cell:filled .table-cell:selected:focused,  .table-row-cell:filled .table-cell:selected {
+}
+
+.table-cell:selected:disabled {
+}
+
+/*.table-cell:focused {
+    -fx-background-color: -fx-focus-color, -fx-control-inner-background;
+    -fx-background-insets: 0, 1.4;
+}*/
+
+.table-view:cell-selection  .table-row-cell:filled .table-cell:hover {
+}
+
+.table-view:cell-selection .table-row-cell:filled .table-cell:focused:hover {
+}
+
+/* The column-resize-line is shown when the user is attempting to resize a column. */
+.table-view .column-resize-line {
+}
+
+/* This is the area behind the column headers. An ideal place to specify background
+   and border colors for the whole area (not individual column-header's). */
+.table-view .column-header-background {
+}
+
+/* The column header row is made up of a number of column-header, one for each
+   TableColumn, and a 'filler' area that extends from the right-most column
+   to the edge of the tableview, or up to the 'column control' button. */
+.table-view .column-header, .table-view .filler {
+}
+
+.table-view .column-header .sort-order {
+}
+
+.table-view .show-hide-columns-button {
+}
+
+.table-view .show-hide-column-image {
+}
+/* When a column is being 'dragged' to be placed in a different position, there
+   is a region that follows along the column header area to indicate where the
+   column will be dropped. This region can be styled using the .column-drag-header
+   name. */
+.table-view .column-drag-header {
+}
+
+/* Semi-transparent overlay to indicate the column that is currently being moved */
+.table-view .column-overlay {
+}
+
+.table-view .arrow {
+}
+
+/* This is shown when the table has no rows and/or no columns. */
+.table-view .empty-table {
+}

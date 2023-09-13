@@ -1,0 +1,66 @@
+
+.menu-item {
+}
+
+.menu-item .left-container {
+}
+
+.menu-item .graphic-container {
+}
+
+.menu-item .label {
+}
+
+.menu-item:disabled .label {
+}
+
+.menu-item:focused {
+}
+
+.menu-item:focused .label {
+}
+.menu-item .right-container {
+}
+
+.menu-item:show-mnemonics .mnemonic-underline {
+}
+
+
+.radio-menu-item:checked .radio {
+}
+
+.radio-menu-item:focused:checked .radio {
+}
+
+.check-menu-item:checked .check {
+}
+
+.check-menu-item:focused:checked .check {
+}
+
+.menu .arrow {
+}
+
+.menu:selected .arrow {
+}
+/*.radio.selected {
+    -fx-background-color: -fx-mark-color;
+    -fx-padding: 0.666667em;  8
+    -fx-shape: "M7,3.5C7,5.433,5.433,7,3.5,7C1.567,7,0,5.433,0,3.5C0,1.567,1.63,0,3.5,0C5.433,0,7,1.567,7,3.5z";
+    -fx-scale-shape: false;
+}*/
+
+/*.check.checked {
+    -fx-background-color: -fx-mark-color;
+    -fx-padding: 0.666667em;  8
+    -fx-shape: "M0,5H2L4,8L8,0H10L5,10H3Z";
+    -fx-scale-shape: false;
+}*/
+
+/*
+.menu-item:hover:selected .menu-item-check, .menu-item:focused:selected .menu-item-check,.menu-item:hover:selected .menu-item-radio, .menu-item:focused:selected .menu-item-radio {
+    -fx-background-color: -fx-selection-bar-text;
+}
+*/
+.menu-item:disabled {
+}

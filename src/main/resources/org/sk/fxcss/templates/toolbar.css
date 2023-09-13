@@ -1,0 +1,33 @@
+
+.tool-bar {
+}
+
+.tool-bar:vertical {
+}
+
+.tool-bar .separator:vertical .line {
+}
+
+.tool-bar .separator:horizontal .line {
+}
+
+.tool-bar:vertical .separator {
+}
+
+.tool-bar:horizontal {
+}
+
+.tool-bar:horizontal .separator {
+}
+
+.tool-bar-overflow-button {
+}
+
+.tool-bar-overflow-button .arrow {
+}
+
+.tool-bar-overflow-button:focused .arrow {
+}
+
+.tool-bar-overflow-button:hover .arrow {
+}

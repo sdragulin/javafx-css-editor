@@ -1,0 +1,34 @@
+
+.menu-button {
+}
+
+/* TODO workaround for RT-19062 */
+.menu-button .label {   }
+
+.menu-button:focused {
+}
+
+.menu-button:hover {
+}
+
+.menu-button:armed {
+}
+
+/* The MenuButton skin uses an inner Label part */
+.menu-button .label {
+}
+
+.menu-button .arrow-button {
+}
+
+.menu-button .arrow {
+}
+
+.menu-button:openvertically .arrow {
+}
+
+.menu-button:disabled {
+}
+
+.menu-button:show-mnemonics .mnemonic-underline {
+}

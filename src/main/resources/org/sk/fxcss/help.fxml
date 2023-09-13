@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="410.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+         xmlns:fx="http://javafx.com/fxml/1" type="org.sk.fxcss.HelpComponent">
+   <header>
+      <AnchorPane prefHeight="51.0" prefWidth="519.0">
+         <children>
+            <TextFlow prefHeight="51.0" prefWidth="519.0" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Text fill="#9292e0" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick'N Dirty JavaFX CSS Editor" textAlignment="CENTER">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+         </children>
+      </AnchorPane>
+   </header>
+   <expandableContent>
+      <ButtonBar prefHeight="28.0" prefWidth="519.0">
+        <buttons>
+          <Button mnemonicParsing="false" prefHeight="47.0" text="Button" />
+        </buttons>
+      </ButtonBar>
+   </expandableContent>
+   <content>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="281.0" prefWidth="497.0">
+               <children>
+                  <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextFlow prefHeight="281.0" prefWidth="497.0">
+                           <children>
+                              <Text lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="One advantage that the HTML/CSS/JS combo has over JavaFX, is live reload. So I put together this app quite fast for some help." wrappingWidth="498.29736328125" />
+                           </children>
+                        </TextFlow>
+                        <TextFlow layoutX="10.0" layoutY="32.0" prefHeight="466.0" prefWidth="497.0">
+                           <children>
+                              <Text lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shortcuts" wrappingWidth="498.29736328125" />
+                           </children>
+                        </TextFlow>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </content>
+</fx:root>

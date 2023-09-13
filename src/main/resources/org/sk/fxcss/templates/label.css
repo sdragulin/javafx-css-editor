@@ -1,0 +1,12 @@
+/**
+* These are the javafx defaults
+**/
+
+.label {
+ }
+
+ .label:disabled {
+ }
+
+ .label:show-mnemonics .mnemonic-underline {
+ }

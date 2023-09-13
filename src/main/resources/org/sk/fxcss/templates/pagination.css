@@ -1,0 +1,38 @@
+.pagination {
+}
+.pagination .page {
+}
+
+.pagination .pagination-control {
+}
+
+.pagination .pagination-control .control-box {
+}
+
+.pagination .pagination-control .left-arrow-button{
+}
+.pagination .pagination-control .right-arrow-button {
+}
+
+.pagination .pagination-control .left-arrow {
+}
+
+.pagination .pagination-control .right-arrow {
+}
+
+.pagination .pagination-control .bullet-button {
+}
+
+.pagination .pagination-control .bullet-button:selected {
+}
+
+.pagination.bullet .pagination-control .left-arrow-button, .pagination.bullet .pagination-control .right-arrow-button {
+}
+
+.pagination .pagination-control .number-button {
+}
+
+.pagination .pagination-control .number-button:selected {
+}
+.pagination .pagination-control .page-information {
+}
