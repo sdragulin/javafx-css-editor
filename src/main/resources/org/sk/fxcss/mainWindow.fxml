@@ -37,6 +37,8 @@
                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <VBox prefHeight="200.0" prefWidth="100.0">
                     <padding>
+                        <!--This is not entirely random. For some reason, although the values are default
+                        java will add some padding to the display.-->
                         <Insets top="0"/>
                         <Insets bottom="0"/>
                         <Insets left="0"/>

@@ -1,18 +1,11 @@
 package org.sk.fxcss;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class SnippetManager {
     private static final SnippetManager _instance=new SnippetManager();
@@ -47,26 +40,22 @@ public class SnippetManager {
             rootArray.addPOJO(snippet);
             mapper.writeValue(SNIPPETS_FILE,rootArray);
         }
-        /*BufferedOutputStream stream=new BufferedOutputStream(new FileOutputStream(SNIPPETS_FILE));
-        JsonGenerator g = mapper.getFactory().createGenerator(stream);
-        g.writeObject(snippet);
-        stream.close();*/
+
     }
 
     public List<Snippet> findSnippet(String name, String elementType) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
 
         List<Snippet> snippets= List.of(mapper.readValue(SNIPPETS_FILE, Snippet[].class));
-        List<Snippet> list = snippets.stream().filter((s) -> s.name().contains(name)
+        return snippets.stream().filter((s) -> s.name().contains(name)
                 || s.elementType().contains(elementType)).toList();
-        return list;
     }
     public Snippet getSnippet(String uuid) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         List<Snippet> snippets= List.of(mapper.readValue(SNIPPETS_FILE, Snippet[].class));
         List<Snippet> list = snippets.stream().filter((s) -> s.uuid().equals(uuid)).toList();
         if(!list.isEmpty())
-            list.get(0);
+            return list.get(0);
         return null;
     }
 }

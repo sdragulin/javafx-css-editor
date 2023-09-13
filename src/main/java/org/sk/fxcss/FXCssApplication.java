@@ -1,6 +1,6 @@
 package org.sk.fxcss;
 
-import com.github.javafaker.App;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ public class FXCssApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        FXCssController controller = (FXCssController) fxmlLoader.getController();
+        FXCssController controller = fxmlLoader.getController();
 
         controller.setState(state);
         controller.setAccelerators(scene);
