@@ -1,0 +1,18 @@
+
+.scroll-pane {
+}
+
+.scroll-pane:focused {
+}
+
+.scroll-pane > * > .scroll-bar:horizontal {
+}
+
+.scroll-pane > * > .scroll-bar:vertical {
+}
+
+.scroll-pane .corner {
+}
+
+.scroll-pane:disabled {
+}

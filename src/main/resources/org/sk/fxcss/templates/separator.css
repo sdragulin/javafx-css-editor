@@ -1,0 +1,12 @@
+
+.separator {
+}
+
+.separator .line {
+}
+
+.separator:horizontal .line {
+}
+
+.separator:vertical .line {
+}

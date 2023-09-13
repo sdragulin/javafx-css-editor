@@ -1,0 +1,30 @@
+
+.slider {
+}
+
+.slider .thumb {
+}
+
+.slider:focused .thumb {
+}
+
+.slider .thumb:hover {
+}
+
+/* Uncomment when RT-10521 is fixed.
+.slider .thumb:pressed {
+    -fx-color: -fx-pressed-base;
+}
+*/
+
+.slider .track {
+}
+
+.slider:vertical .track {
+}
+
+.slider .axis {
+}
+
+.slider:disabled {
+}

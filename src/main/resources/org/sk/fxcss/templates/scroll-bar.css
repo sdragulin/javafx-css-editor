@@ -1,0 +1,59 @@
+
+.scroll-bar {
+}
+
+.scroll-bar:horizontal {
+}
+
+.scroll-bar:horizontal:focused {
+}
+
+.scroll-bar:vertical {
+}
+
+.scroll-bar:vertical:focused {
+}
+
+.scroll-bar:horizontal .thumb {
+}
+
+.scroll-bar:vertical .thumb {
+}
+
+.scroll-bar:focused .thumb {
+}
+
+.scroll-bar .thumb:hover {
+}
+
+.scroll-bar:horizontal .track {
+}
+.scroll-bar:horizontal .track-background {
+}
+
+.scroll-bar:vertical .track {
+}
+
+.scroll-bar:vertical .track-background {
+}
+
+.scroll-bar .increment-button {
+}
+
+.scroll-bar .decrement-button {
+}
+
+.scroll-bar:horizontal .increment-arrow {
+}
+
+.scroll-bar:vertical .increment-arrow {
+}
+
+.scroll-bar:horizontal .decrement-arrow {
+}
+
+.scroll-bar:vertical .decrement-arrow {
+}
+
+.scroll-bar:disabled {
+}

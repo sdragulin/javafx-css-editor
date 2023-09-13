@@ -1,0 +1,33 @@
+
+.check-box {
+}
+
+.check-box:focused {
+}
+
+.check-box .box {
+}
+
+.check-box:focused .box {
+}
+
+.check-box:hover .box {
+}
+
+.check-box:armed .box {
+}
+
+.check-box .mark {
+}
+
+.check-box:indeterminate .mark {
+}
+
+.check-box:selected .mark {
+}
+
+.check-box:disabled {
+}
+
+.check-box:show-mnemonics .mnemonic-underline {
+}

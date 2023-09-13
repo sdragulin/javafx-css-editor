@@ -1,0 +1,38 @@
+ ******************************************************************************/
+
+.split-menu-button {
+}
+
+.split-menu-button:focused {
+}
+
+.split-menu-button .label:hover {
+}
+
+.split-menu-button:armed .label {
+}
+
+/* The SplitMenuButton skin uses an inner Label part */
+.split-menu-button .label {
+}
+
+.split-menu-button .arrow-button {
+}
+
+.split-menu-button .arrow-button:hover {
+}
+
+.split-menu-button .arrow-button:armed {
+}
+
+.split-menu-button .arrow {
+}
+
+.split-menu-button:openvertically .arrow {
+}
+
+.split-menu-button:disabled {
+}
+
+.split-menu-button:show-mnemonics .mnemonic-underline {
+}

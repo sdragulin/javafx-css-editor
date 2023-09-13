@@ -1,0 +1,27 @@
+.menu {
+}
+
+.menu:disabled {
+}
+
+.menu:show-mnemonics .mnemonic-underline {
+}
+
+/* This hides the down arrow that would show on a menu placed in a menubar */
+.menu-bar .menu .arrow {
+}
+
+.menu-bar .menu .arrow-button {
+}
+
+.menu .arrow {
+}
+
+.menu:focused:showing .arrow, .menu:hover:showing .arrow, .menu:focused .arrow, .menu:showing .arrow {
+}
+
+.menu-up-arrow {
+}
+
+.menu-down-arrow {
+}

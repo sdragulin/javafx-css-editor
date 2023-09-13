@@ -1,0 +1,25 @@
+.menu-bar {
+}
+
+/* Show nothing for background of normal menu button in a menu bar */
+.menu-bar .menu-button {
+}
+/* Change padding of menu buttons when in menu bar */
+.menu-bar .menu-button .label {
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+}
+
+/*.menu-bar .menu:focused:showing, .menu-bar .menu:showing, .menu-bar .menu:focused, .menu:focused:showing, .menu:showing, .menu:focused {*/
+/*.menu-bar .menu-button:showing, .menu-button:showing {
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}*/
+
+.menu-bar .menu-button:hover {
+}
+
+.menu-bar:show-mnemonics .mnemonic-underline {
+}

@@ -1,0 +1,28 @@
+
+.titled-pane {
+}
+
+.titled-pane:focused {
+}
+
+.titled-pane > .title {
+}
+
+.titled-pane:focused > .title {
+}
+
+.titled-pane > .title > .arrow-button {
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+}
+
+.titled-pane > *.content {
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+}
+

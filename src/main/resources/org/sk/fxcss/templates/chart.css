@@ -1,0 +1,40 @@
+.chart {
+}
+.chart-content {
+}
+.chart-title {
+}
+.chart-legend {
+}
+
+.chart-plot-background {
+}
+.chart-vertical-grid-lines {
+}
+.chart-horizontal-grid-lines {
+}
+.chart-alternative-column-fill {
+}
+.chart-alternative-row-fill {
+}
+.chart-vertical-zero-line {
+}
+.chart-horizontal-zero-line {
+}
+/* ====== SCATTER CHART =========================================================== */
+.chart-symbol { /* solid circle */
+}
+.default-color1.chart-symbol { /* solid square */
+}
+.default-color2.chart-symbol { /* solid diamond */
+}
+.default-color3.chart-symbol { /* cross */
+}
+.default-color4.chart-symbol { /* solid triangle */
+}
+.default-color5.chart-symbol { /* hollow circle */
+}
+.default-color6.chart-symbol { /* hollow square */
+}
+.default-color7.chart-symbol { /* hollow diamond */
+}

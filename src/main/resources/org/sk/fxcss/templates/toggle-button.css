@@ -1,0 +1,24 @@
+
+.toggle-button {
+}
+
+.toggle-button:focused {
+}
+
+.toggle-button:hover {
+}
+
+.toggle-button:armed {
+}
+
+.toggle-button:selected {
+}
+
+.toggle-button:selected:focused {
+}
+
+.toggle-button:disabled {
+}
+
+.toggle-button:show-mnemonics .mnemonic-underline {
+}

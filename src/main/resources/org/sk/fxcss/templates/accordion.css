@@ -1,0 +1,35 @@
+.accordion .titled-pane .title {
+
+}
+
+.accordion .first-titled-pane .title {
+
+}
+
+.accordion .titled-pane:focused > .title {
+
+}
+
+.accordion .titled-pane:focused {
+
+}
+
+.accordion .titled-pane:focused > .title > .arrow-button .arrow {
+
+}
+
+.accordion .titled-pane:focused .titled-pane:collapsed > .title > .arrow-button .arrow {
+
+}
+
+.accordion .titled-pane:collapsed:focused > .title {
+
+}
+
+.accordion .titled-pane:expanded:focused > .title {
+
+}
+
+.accordion .titled-pane:hover > .title {
+
+}
