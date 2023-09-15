@@ -1,114 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.fxmisc.richtext.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<?import org.sk.fxcss.*?>
 
-<?import org.sk.fxcss.ElementComponents?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import org.fxmisc.flowless.VirtualizedScrollPane?>
-<VBox fx:controller="org.sk.fxcss.FXCssController" prefHeight="495.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="495.0" prefWidth="617.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sk.fxcss.FXCssController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" fx:id="newSheetMenuItem" text="New" onAction="#newStyle"/>
-            <MenuItem mnemonicParsing="false" text="Open" fx:id="openSheetMenuItem" onAction="#openStyle"/>
+            <MenuItem fx:id="newSheetMenuItem" mnemonicParsing="false" onAction="#newStyle" text="New" />
+            <MenuItem fx:id="openSheetMenuItem" mnemonicParsing="false" onAction="#openStyle" text="Open" />
             <!--The file is saved automatically on applying style, since in order to apply
             a stylesheet we need to save the file first;-->
             <!--<MenuItem mnemonicParsing="false" text="Save" onAction="#saveAsStyle"/>-->
-            <MenuItem mnemonicParsing="false" fx:id="saveAsMenuItem" text="Save As" onAction="#saveAsStyle"/>
-            <MenuItem mnemonicParsing="false" fx:id="closeMenuItem" text="Close" onAction="#close"/>
+            <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsStyle" text="Save As" />
+            <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#close" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Undo" fx:id="undoMenuItem" onAction="#undo"/>
-            <MenuItem mnemonicParsing="false" text="Redo" fx:id="redoMenuItem" onAction="#redo"/>
+            <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#undo" text="Undo" />
+            <MenuItem fx:id="redoMenuItem" mnemonicParsing="false" onAction="#redo" text="Redo" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About" fx:id="aboutMenuItem" onAction="#showAbout"/>
+            <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#showAbout" text="About" />
         </Menu>
     </MenuBar>
+
+        <ToolBar prefHeight="40.0" prefWidth="158.0">
+            <Button fx:id="applyButton" defaultButton="true" mnemonicParsing="false" onAction="#applyStyle" text="Apply Style" />
+
+            <ComboBox fx:id="templates" promptText="Style Templates">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Button" />
+                        <String fx:value="Checkbox" />
+                        <String fx:value="ChoiceBox" />
+                        <String fx:value="ColorPicker" />
+                        <String fx:value="ComboBox" />
+                        <String fx:value="ContextMenu" />
+                        <String fx:value="Hyperlink" />
+                        <String fx:value="Label" />
+                        <String fx:value="ListView" />
+                        <String fx:value="Menu" />
+                        <String fx:value="MenuBar" />
+                        <String fx:value="MenuButton" />
+                        <String fx:value="MenuItem" />
+                        <String fx:value="Pagination" />
+                        <String fx:value="ProgressBar" />
+                        <String fx:value="ProgressIndicator" />
+                        <String fx:value="RadioButton" />
+                        <String fx:value="ScrollBar" />
+                        <String fx:value="ScrollPane" />
+                        <String fx:value="Separator" />
+                        <String fx:value="Slider" />
+                        <String fx:value="SplitMenuButton" />
+                        <String fx:value="SplitPane" />
+                        <String fx:value="TableView" />
+                        <String fx:value="TabPane" />
+                        <String fx:value="TextArea" />
+                        <String fx:value="TextInput" />
+                        <String fx:value="TitledPane" />
+                        <String fx:value="ToggleButton" />
+                        <String fx:value="Toolbar" />
+                        <String fx:value="Tooltip" />
+                        <String fx:value="TreeView" />
+                        <String fx:value="AxisChart" />
+                        <String fx:value="AreaChart" />
+                        <String fx:value="BarChart" />
+                        <String fx:value="BubbleChart" />
+                        <String fx:value="LineChart" />
+                        <String fx:value="PieChart" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+        </ToolBar>
     <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="195.0">
-            <TitledPane animated="false" collapsible="false" layoutY="14.0" prefHeight="466.0" prefWidth="180.0"
-                        text="Editor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <VBox prefHeight="200.0" prefWidth="100.0">
-                    <padding>
-                        <!--This is not entirely random. For some reason, although the values are default
-                        java will add some padding to the display.-->
-                        <Insets top="0"/>
-                        <Insets bottom="0"/>
-                        <Insets left="0"/>
-                        <Insets right="0"/>
-                    </padding>
-
-                    <ToolBar prefHeight="40.0" prefWidth="158.0">
-                        <Button defaultButton="true" mnemonicParsing="false" fx:id="applyButton" text="Apply Style"
-                                onAction="#applyStyle"/>
-                        <Button onAction="#saveAsStyle" fx:id="saveButton">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-save" iconSize="16"/>
-                            </graphic>
-                        </Button>
-                        <ComboBox fx:id="templates" promptText="Style Templates">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Button"/>
-                                    <String fx:value="Checkbox"/>
-                                    <String fx:value="ChoiceBox"/>
-                                    <String fx:value="ColorPicker"/>
-                                    <String fx:value="ComboBox"/>
-                                    <String fx:value="ContextMenu"/>
-                                    <String fx:value="Hyperlink"/>
-                                    <String fx:value="Label"/>
-                                    <String fx:value="ListView"/>
-                                    <String fx:value="Menu"/>
-                                    <String fx:value="MenuBar"/>
-                                    <String fx:value="MenuButton"/>
-                                    <String fx:value="MenuItem"/>
-                                    <String fx:value="Pagination"/>
-                                    <String fx:value="ProgressBar"/>
-                                    <String fx:value="ProgressIndicator"/>
-                                    <String fx:value="RadioButton"/>
-                                    <String fx:value="ScrollBar"/>
-                                    <String fx:value="ScrollPane"/>
-                                    <String fx:value="Separator"/>
-                                    <String fx:value="Slider"/>
-                                    <String fx:value="SplitMenuButton"/>
-                                    <String fx:value="SplitPane"/>
-                                    <String fx:value="TableView"/>
-                                    <String fx:value="TabPane"/>
-                                    <String fx:value="TextArea"/>
-                                    <String fx:value="TextInput"/>
-                                    <String fx:value="TitledPane"/>
-                                    <String fx:value="ToggleButton"/>
-                                    <String fx:value="Toolbar"/>
-                                    <String fx:value="Tooltip"/>
-                                    <String fx:value="TreeView"/>
-                                    <String fx:value="AxisChart"/>
-                                    <String fx:value="AreaChart"/>
-                                    <String fx:value="BarChart"/>
-                                    <String fx:value="BubbleChart"/>
-                                    <String fx:value="LineChart"/>
-                                    <String fx:value="PieChart"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </ToolBar>
-                    <VirtualizedScrollPane VBox.vgrow="ALWAYS">
-                        <content>
-                    <CodeArea fx:id="mainEditor" prefHeight="200.0" prefWidth="200.0"
-                              VBox.vgrow="ALWAYS"/>
-                        </content>
-                    </VirtualizedScrollPane>
-                </VBox>
-            </TitledPane>
+         <TabPane fx:id="editorContainerTabPane" prefHeight="426.0" prefWidth="180.0" side="LEFT" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          
+         </TabPane>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <ElementComponents fx:id="components"/>
+            <TitledPane fx:id="containerTitledPane" animated="false" collapsible="false" prefHeight="426.0" prefWidth="429.0" text="Container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="containerPane">
+               <ScrollPane layoutX="10.399999618530273" layoutY="10.399999618530273" prefHeight="556.0" prefWidth="923.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <content>
+                          <ElementComponents />
+                  </content>
+               </ScrollPane>
+                </AnchorPane>
+            <graphic>
+               <ButtonBar fx:id="containerButtonBar" prefHeight="40.0" prefWidth="200.0">
+                  <buttons>
+                     <Button fx:id="loadFXMLButton" mnemonicParsing="false" onAction="#loadFXML">
+                         <tooltip>
+                             <Tooltip text="Load FXML file">
+
+                             </Tooltip>
+                         </tooltip>
+                         <graphic>
+                             <FontIcon iconLiteral="fas-code" iconSize="12" />
+                         </graphic>
+                     </Button>
+                     <Button fx:id="reloadFXMLButton" mnemonicParsing="false" onAction="#reloadFXML">
+                         <tooltip>
+                             <Tooltip text="Reload FXML">
+
+                             </Tooltip>
+                         </tooltip>
+                         <graphic>
+                             <FontIcon iconLiteral="fi-loop" iconSize="12" />
+                         </graphic>
+                     </Button>
+                  </buttons>
+               </ButtonBar>
+            </graphic>
+            </TitledPane>
         </AnchorPane>
     </SplitPane>
 </VBox>

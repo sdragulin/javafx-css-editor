@@ -15,6 +15,15 @@
     </properties>
 
     <dependencies>
+
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-foundation-pack</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack -->
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>

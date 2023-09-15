@@ -14,12 +14,13 @@ public class FXCssApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(FXCssApplication.class.getResource("mainWindow.fxml"));
         AppState state=AppState.getInstance();
         state.setMainStage(stage);
+        stage.setMaximized(true);
         Scene scene = new Scene(fxmlLoader.load(), 1200, 900);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
         FXCssController controller = fxmlLoader.getController();
-
+        
         controller.setState(state);
         controller.setAccelerators(scene);
     }

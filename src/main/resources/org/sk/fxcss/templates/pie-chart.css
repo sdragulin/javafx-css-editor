@@ -4,7 +4,13 @@
 }
 .chart-pie-label-line {
 }
+
 .default-color0.chart-pie {  }
+.default-color0.chart-legend-item-symbol{}
+.default-color0.chart-line-symbol {
+    -fx-background-color: #f9d900, white;
+}
+
 .default-color1.chart-pie {  }
 .default-color2.chart-pie {   }
 .default-color3.chart-pie {  }
@@ -15,4 +21,10 @@
 .negative.chart-pie {
 }
 .pie-legend-symbol.chart-pie {
+}
+.chart-line-symbol {
+    -fx-background-color: #f9d900;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
 }

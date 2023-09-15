@@ -6,7 +6,7 @@ public class AppState {
     private Stage mainStage;
     private static final AppState _instance=new AppState();
     public static final String TEMPLATE_FOLDER="templates";
-    public static final String TEMP_FILE_PATH ="tmp.css";
+    public static final String TEMP_FILE_PATH ="tmp";
 
     private AppState(){
 

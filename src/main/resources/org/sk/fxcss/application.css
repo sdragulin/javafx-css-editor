@@ -1,0 +1,14 @@
+* {
+	-fx-primary-color: #000d1f;
+	-fx-secondary-color: #3c7790;
+	-fx-ternary-color: #141A23;
+	-fx-text-color: white;
+}
+
+#applyButton, #applyButton:armed, #applyButton:hover {
+	-fx-background-color: -fx-secondary-color;
+    -fx-text-fill: -fx-text-color;
+    -fx-border-radius:0;
+    -fx-background-radius:0;
+	-fx-font-size:10;
+}

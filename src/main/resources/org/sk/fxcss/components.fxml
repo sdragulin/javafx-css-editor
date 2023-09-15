@@ -1,202 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.sk.fxcss.*?>
 
-<fx:root prefHeight="533.0" prefWidth="900.0" type="org.sk.fxcss.ElementComponents"
-         xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox layoutX="200.0" layoutY="27.0" prefHeight="534.0" prefWidth="600.0" AnchorPane.bottomAnchor="-134.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<fx:root prefHeight="533.0" prefWidth="900.0" type="org.sk.fxcss.ElementComponents" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox layoutX="200.0" layoutY="27.0" prefHeight="534.0" prefWidth="600.0" AnchorPane.bottomAnchor="-134.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <MenuBar>
             <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" text="Close"/>
+                <MenuItem mnemonicParsing="false" text="Close" />
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
-                <MenuItem mnemonicParsing="false" text="Delete"/>
+                <MenuItem mnemonicParsing="false" text="Delete" />
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" text="About"/>
+                <MenuItem mnemonicParsing="false" text="About" />
             </Menu>
         </MenuBar>
         <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <Accordion>
                 <panes>
                     <TitledPane animated="false" text="TreeView">
-                        <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-                                    prefWidth="100.0">
-                            <TreeView fx:id="treeView" layoutY="22.0" prefHeight="371.0" prefWidth="175.0"
-                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="anchor-pane">
+                            <TreeView fx:id="treeView" layoutY="22.0" prefHeight="371.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         </AnchorPane>
                     </TitledPane>
                     <TitledPane animated="false" expanded="false" text="ListView">
-                        <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-                                    prefWidth="100.0">
-                            <ListView fx:id="listView" layoutY="22.0" prefHeight="371.0" prefWidth="175.0"
-                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="anchor-pane">
+                            <ListView fx:id="listView" layoutY="22.0" prefHeight="371.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         </AnchorPane>
                     </TitledPane>
 
                 </panes>
             </Accordion>
-            <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-                        prefWidth="100.0">
-                <TabPane layoutX="86.0" layoutY="71.0" prefHeight="371.0" prefWidth="417.0"
-                         tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0"
-                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="anchor-pane">
+                <TabPane layoutX="86.0" layoutY="71.0" prefHeight="371.0" prefWidth="417.0" tabClosingPolicy="ALL_TABS"
+                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                          AnchorPane.topAnchor="0.0">
-                    <tabs>
-                        <Tab text="Form">
-                            <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0"
-                                        prefHeight="180.0" prefWidth="200.0">
-                                <ScrollPane layoutX="-0.0380859375" AnchorPane.bottomAnchor="0.0"
-                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                            AnchorPane.topAnchor="0.0">
-                                    <GridPane styleClass="grid-pane" prefHeight="425.0"
-                                              prefWidth="417.0">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES"
-                                                               maxWidth="202.0" minWidth="10.0"
-                                                               prefWidth="136.0"/>
-                                            <ColumnConstraints hgrow="SOMETIMES"
-                                                               maxWidth="332.0" minWidth="10.0"
-                                                               prefWidth="281.0"/>
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints maxHeight="202.0" minHeight="10.0"
-                                                            prefHeight="147.0"
-                                                            vgrow="SOMETIMES"/>
-                                            <RowConstraints maxHeight="107.0" minHeight="10.0"
-                                                            prefHeight="80.0"
-                                                            vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                            vgrow="SOMETIMES"/>
-                                            <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                                            vgrow="SOMETIMES"/>
-                                        </rowConstraints>
-                                        <Label text="Text Field"/>
-                                        <VBox styleClass="vbox" alignment="CENTER" spacing="20"
-                                              GridPane.columnIndex="1">
-                                            <TextField promptText="Editable"/>
-                                            <TextField editable="false"
-                                                       promptText="Non-editable"
-                                                       text="Read only text"/>
-                                            <TextField disable="true" text="Editable disabled"/>
-                                            <TextField disable="true" editable="false"
-                                                       promptText="Read only disabled"/>
-                                        </VBox>
-                                        <TextArea prefHeight="107.0" prefWidth="277.0"
-                                                  GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="1"/>
-                                        <Label text="Text Area" GridPane.rowIndex="1"/>
-                                        <FlowPane styleClass="flow-pane" hgap="10.0" vgap="10.0"
-                                                  GridPane.rowIndex="3">
-                                            <Button mnemonicParsing="false" text="Button"/>
-                                            <Button disable="true" mnemonicParsing="false"
-                                                    text="Button"/>
-                                            <Button defaultButton="true"
-                                                    mnemonicParsing="false" text="Button"/>
-                                            <Button cancelButton="true" layoutX="10.0"
-                                                    layoutY="44.0" mnemonicParsing="false"
-                                                    text="Cancel"/>
-                                        </FlowPane>
-                                        <FlowPane styleClass="flow-pane" hgap="10.0" vgap="10.0"
-                                                  GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="3">
-                                            <ToggleButton mnemonicParsing="false"
-                                                          text="ToggleButton"/>
-                                            <ToggleButton layoutX="10.0" layoutY="10.0"
-                                                          mnemonicParsing="false"
-                                                          selected="true" text="Toggled"/>
-                                            <ToggleButton disable="true" layoutX="116.0"
-                                                          layoutY="10.0"
-                                                          mnemonicParsing="false"
-                                                          text="Selected"/>
-                                        </FlowPane>
-                                        <FlowPane styleClass="flow-pane" hgap="10.0"
-                                                  rowValignment="TOP" vgap="10.0"
-                                                  GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="2">
-                                            <ComboBox prefHeight="24.0" prefWidth="118.0"/>
-                                            <ComboBox editable="true" layoutX="10.0"
-                                                      layoutY="10.0" prefHeight="24.0"
-                                                      prefWidth="118.0"/>
-                                            <ChoiceBox prefHeight="24.0" prefWidth="121.0"/>
-                                            <ChoiceBox prefHeight="24.0" prefWidth="111.0"/>
-                                        </FlowPane>
-                                    </GridPane>
-                                </ScrollPane>
-                            </AnchorPane>
-                        </Tab>
-                        <Tab text="Table">
-                            <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0"
-                                        prefHeight="180.0" prefWidth="200.0">
-                                <TableView fx:id="tableView" layoutY="22.0" prefHeight="371.0"
-                                           prefWidth="175.0" AnchorPane.bottomAnchor="0.0"
-                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                           AnchorPane.topAnchor="0.0"/>
+                    <Tab text="Charts">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    styleClass="anchor-pane">
+                            <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <VBox prefWidth="627.0" spacing="30.0" styleClass="vbox">
+                                    <LineChart fx:id="lineChart">
+                                        <xAxis>
+                                            <NumberAxis side="BOTTOM"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </yAxis>
+                                    </LineChart>
+                                    <BarChart fx:id="barChart" prefHeight="306.0" prefWidth="627.0">
+                                        <xAxis>
+                                            <CategoryAxis side="BOTTOM"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </yAxis>
+                                    </BarChart>
+                                    <StackedAreaChart fx:id="stackedAreaChart" prefHeight="306.0" prefWidth="627.0">
+                                        <yAxis>
+                                            <NumberAxis side="BOTTOM"/>
+                                        </yAxis>
+                                        <xAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </xAxis>
+                                    </StackedAreaChart>
+                                    <ScatterChart fx:id="scatterChart">
+                                        <xAxis>
+                                            <NumberAxis side="BOTTOM"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </yAxis>
+                                    </ScatterChart>
+                                    <StackedBarChart fx:id="stackedBarChart">
+                                        <xAxis>
+                                            <CategoryAxis side="BOTTOM"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </yAxis>
+                                    </StackedBarChart>
+                                    <PieChart fx:id="pieChart"/>
 
-                            </AnchorPane>
-                        </Tab>
-
-                        <Tab text="Charts">
-                            <AnchorPane styleClass="anchor-pane" minHeight="0.0" minWidth="0.0"
-                                        prefHeight="180.0" prefWidth="200.0">
-                                <ScrollPane AnchorPane.bottomAnchor="0.0"
-                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                            AnchorPane.topAnchor="0.0">
-                                    <VBox prefWidth="627.0" spacing="30.0" styleClass="vbox">
-                                        <BarChart fx:id="barChart" prefHeight="306.0"
-                                                  prefWidth="627.0">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </BarChart>
-                                        <ScatterChart fx:id="scatterChart">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </ScatterChart>
-                                        <StackedBarChart fx:id="stackedBarChart">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </StackedBarChart>
-                                        <PieChart fx:id="pieChart"/>
-                                        <LineChart fx:id="lineChart">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </LineChart>
-                                        <BubbleChart fx:id="bubbleChart">
-                                            <xAxis>
-                                                <NumberAxis side="BOTTOM"/>
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT"/>
-                                            </yAxis>
-                                        </BubbleChart>
+                                    <BubbleChart fx:id="bubbleChart">
+                                        <xAxis>
+                                            <NumberAxis side="BOTTOM"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT"/>
+                                        </yAxis>
+                                    </BubbleChart>
+                                </VBox>
+                            </ScrollPane>
+                        </AnchorPane>
+                    </Tab>
+                    <Tab text="Form">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    styleClass="anchor-pane">
+                            <ScrollPane layoutX="-0.0380859375" AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.topAnchor="0.0">
+                                <GridPane prefHeight="425.0" prefWidth="417.0" styleClass="grid-pane">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0"
+                                                           prefWidth="136.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0"
+                                                           prefWidth="281.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="147.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="80.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <Label text="Text Field"/>
+                                    <VBox alignment="CENTER" spacing="20" styleClass="vbox" GridPane.columnIndex="1">
+                                        <TextField promptText="Editable"/>
+                                        <TextField editable="false" promptText="Non-editable" text="Read only text"/>
+                                        <TextField disable="true" text="Editable disabled"/>
+                                        <TextField disable="true" editable="false" promptText="Read only disabled"/>
                                     </VBox>
-                                </ScrollPane>
-                            </AnchorPane>
-                        </Tab>
+                                    <TextArea prefHeight="107.0" prefWidth="277.0" GridPane.columnIndex="1"
+                                              GridPane.rowIndex="1"/>
+                                    <Label text="Text Area" GridPane.rowIndex="1"/>
+                                    <FlowPane hgap="10.0" styleClass="flow-pane" vgap="10.0" GridPane.rowIndex="3">
+                                        <Button mnemonicParsing="false" text="Button"/>
+                                        <Button disable="true" mnemonicParsing="false" text="Button"/>
+                                        <Button defaultButton="true" mnemonicParsing="false" text="Button"/>
+                                        <Button cancelButton="true" layoutX="10.0" layoutY="44.0"
+                                                mnemonicParsing="false" text="Cancel"/>
+                                    </FlowPane>
+                                    <FlowPane hgap="10.0" styleClass="flow-pane" vgap="10.0" GridPane.columnIndex="1"
+                                              GridPane.rowIndex="3">
+                                        <ToggleButton mnemonicParsing="false" text="ToggleButton"/>
+                                        <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                                                      selected="true" text="Toggled"/>
+                                        <ToggleButton disable="true" layoutX="116.0" layoutY="10.0"
+                                                      mnemonicParsing="false" text="Selected"/>
+                                    </FlowPane>
+                                    <FlowPane hgap="10.0" rowValignment="TOP" styleClass="flow-pane" vgap="10.0"
+                                              GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <ComboBox prefHeight="24.0" prefWidth="118.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Option 1"/>
+                                                    <String fx:value="Option 2"/>
+                                                    <String fx:value="Option 3"/>
+                                                    <String fx:value="Option 4"/>
+                                                    <String fx:value="Option 5"/>
+                                                    <String fx:value="Option 6"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
 
-                    </tabs>
+                                        <ComboBox editable="true" layoutX="10.0" layoutY="10.0" prefHeight="24.0"
+                                                  prefWidth="118.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Option 1"/>
+                                                    <String fx:value="Option 2"/>
+                                                    <String fx:value="Option 3"/>
+                                                    <String fx:value="Option 4"/>
+                                                    <String fx:value="Option 5"/>
+                                                    <String fx:value="Option 6"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+                                        <ChoiceBox prefHeight="24.0" prefWidth="121.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Choice 1"/>
+                                                    <String fx:value="Choice 2"/>
+                                                    <String fx:value="Choice 3"/>
+                                                    <String fx:value="Choice 4"/>
+                                                    <String fx:value="Choice 5"/>
+                                                    <String fx:value="Choice 6"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ChoiceBox>
+                                        <ChoiceBox disable="true" prefHeight="24.0" prefWidth="111.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Choice 1"/>
+                                                    <String fx:value="Choice 2"/>
+                                                    <String fx:value="Choice 3"/>
+                                                    <String fx:value="Choice 4"/>
+                                                    <String fx:value="Choice 5"/>
+                                                    <String fx:value="Choice 6"/>
+                                                </FXCollections>
+                                            </items>
+                                        </ChoiceBox>
+                                    </FlowPane>
+                                </GridPane>
+                            </ScrollPane>
+                        </AnchorPane>
+                    </Tab>
+                    <Tab text="Table">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                    styleClass="anchor-pane">
+                            <TableView fx:id="tableView" layoutY="22.0" prefHeight="371.0" prefWidth="175.0"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+
+                        </AnchorPane>
+                    </Tab>
+
                 </TabPane>
             </AnchorPane>
         </SplitPane>

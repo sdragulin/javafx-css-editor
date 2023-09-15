@@ -1,40 +1,43 @@
 package org.sk.fxcss;
 
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 
-import javafx.geometry.Insets;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
+import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
-import org.fxmisc.richtext.CodeArea;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Optional;
+import java.util.concurrent.Executors;
 
 public class FXCssController {
-    public CodeArea mainEditor;
+    public TitledPane containerTitledPane;
+    public ButtonBar containerButtonBar;
+
+    private final SimpleObjectProperty<CodeEditorTab> activeEditor=new SimpleObjectProperty<>();
     public ElementComponents components;
     public ComboBox<String> templates;
     public Button applyButton;
-    public Button saveButton;
+
     public MenuItem redoMenuItem;
     public MenuItem undoMenuItem;
     public MenuItem closeMenuItem;
@@ -42,94 +45,69 @@ public class FXCssController {
     public MenuItem openSheetMenuItem;
     public MenuItem newSheetMenuItem;
     public MenuItem aboutMenuItem;
+    public AnchorPane containerPane;
+    public Button loadFXMLButton;
+    public Button reloadFXMLButton;
+    public TabPane editorContainerTabPane;
     private AppState state;
+    private final ObjectProperty<File> fxmlFileProperty=new SimpleObjectProperty<>();
 
     private final KeyCombination closeKC=new KeyCodeCombination(KeyCode.Q,KeyCombination.CONTROL_DOWN);
     private final KeyCombination newKC=new KeyCodeCombination(KeyCode.N,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination cutKC=new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination copyKC=new KeyCodeCombination(KeyCode.C,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination pasteKC=new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination undoKC=new KeyCodeCombination(KeyCode.Z,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination redoKC=new KeyCodeCombination(KeyCode.Y,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination insertSnippetKC=new KeyCodeCombination(KeyCode.I,KeyCombination.CONTROL_DOWN);
-    private final KeyCombination saveSnippetKC=new KeyCodeCombination(KeyCode.D,KeyCombination.CONTROL_DOWN);
+
     private final KeyCombination applyStyleKC=new KeyCodeCombination(KeyCode.S,KeyCombination.CONTROL_DOWN);
+
     private final KeyCombination saveAsKC=new KeyCodeCombination(KeyCode.W,KeyCombination.CONTROL_DOWN);
     private final KeyCombination openKC=new KeyCodeCombination(KeyCode.O,KeyCombination.CONTROL_DOWN);
     private final KeyCombination aboutKC=new KeyCodeCombination(KeyCode.H,KeyCombination.CONTROL_DOWN);
 
-
     private final BooleanProperty savedProperty =new SimpleBooleanProperty(false);
-    /*
-    * while the user is still writing to a temp file, this should not change
-    *
-    */
-    private final BooleanProperty changedProperty=new SimpleBooleanProperty(true);
+
     private final ObjectProperty<File> editingFileProperty=new SimpleObjectProperty<>();
     public FXCssController() {
-        initEditor();
 
     }
     public void initialize(){
-        templates.valueProperty().addListener((observableValue, s, t1) -> {
-            String template=resolveTemplate(t1);
-            loadTemplate(template);
+        reloadFXMLButton.setDisable(true);
+        reloadFXMLButton.disableProperty().bind(fxmlFileProperty.isNull());
+
+        editorContainerTabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, tab, t1) -> {
+            if(!(t1 instanceof CodeEditorTab))
+                throw new UnsupportedOperationException("Only CodeEditor tabs are supported");
+            activeEditor.setValue((CodeEditorTab) t1);
         });
-        redoMenuItem.setAccelerator(redoKC);
-        undoMenuItem.setAccelerator(undoKC);
+        editorContainerTabPane.getTabs().add(new CodeEditorTab());
+        fxmlFileProperty.addListener((observableValue, file, t1) -> {
+            if(t1==null) {
+                components = new ElementComponents();
+                containerPane.getChildren().add(components);
+            }else{
+                try {
+                    reloadFXML();
+                } catch (IOException e) {
+                    showErrorWarning("Could not open FXML file",e);
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
+        templates.valueProperty().addListener((observableValue, s, t1) -> activeEditor.get().loadTemplate(t1));
         closeMenuItem.setAccelerator(closeKC);
         saveAsMenuItem.setAccelerator(saveAsKC);
         openSheetMenuItem.setAccelerator(openKC);
         newSheetMenuItem.setAccelerator(newKC);
         aboutMenuItem.setAccelerator(aboutKC);
-        mainEditor.setPadding(new Insets(0.0,0.0,0.0,10.0));
-        ContextMenu menu=new ContextMenu();
+        containerTitledPane.setContentDisplay(ContentDisplay.RIGHT);
+        final double graphicMarginRight = 10; //change if needed
 
-        MenuItem copy=new MenuItem("Copy");
-        copy.setOnAction((e)->mainEditor.copy());
-        copy.setAccelerator(copyKC);
+        containerButtonBar.translateXProperty().bind(Bindings.createDoubleBinding(
+                () -> containerTitledPane.getWidth() - containerButtonBar.getLayoutX() - containerButtonBar.getWidth() - graphicMarginRight,
+                containerTitledPane.widthProperty())
+        );
 
-        MenuItem cut=new MenuItem("Cut");
-        cut.setAccelerator(cutKC);
-        cut.setOnAction((e)->mainEditor.cut());
-        MenuItem paste=new MenuItem("Paste");
-        paste.setOnAction((e)->mainEditor.paste());
-        paste.setAccelerator(pasteKC);
-
-        MenuItem undo=new MenuItem("Undo");
-        undo.setOnAction((e)->undo());
-        undo.setAccelerator(undoKC);
-        MenuItem redo=new MenuItem("Redo");
-        redo.setOnAction((e)->redo());
-        redo.setAccelerator(redoKC);
-        menu.getItems().addAll(copy,cut,paste);
-
-        SeparatorMenuItem separatorMenuItem=new SeparatorMenuItem();
-        menu.getItems().add(separatorMenuItem);
-        menu.getItems().addAll(undo,redo);
-
-        SeparatorMenuItem separator=new SeparatorMenuItem();
-        menu.getItems().add(separator);
-
-        MenuItem insertSnippet=new MenuItem("Insert snippet");
-        insertSnippet.setOnAction((e)-> showSnippetDialog());
-        insertSnippet.setAccelerator(insertSnippetKC);
-        MenuItem saveSnippetMenu=new MenuItem("Save snippet");
-        saveSnippetMenu.setOnAction((e)->showSaveSnippetDialog());
-        saveSnippetMenu.setAccelerator(saveSnippetKC);
-        saveSnippetMenu.setDisable(true);
-        mainEditor.selectedTextProperty()
-                .addListener((observableValue, s, t1) ->
-                        saveSnippetMenu.setDisable(t1.isBlank()));
-
-        menu.getItems().addAll(insertSnippet,saveSnippetMenu);
-        mainEditor.setContextMenu(menu);
         editingFileProperty.addListener((observableValue, file, t1) -> {
             try {
-                loadFile(t1);
                 applyStyle();
-                changedProperty.set(false);
-                savedProperty.set(true);
             } catch (IOException e) {
                 showErrorWarning("Cannot open file "+t1);
                 throw new RuntimeException(e);
@@ -138,75 +116,27 @@ public class FXCssController {
                 throw new RuntimeException(e);
             }
         });
-        mainEditor.textProperty().addListener((observableValue, s, t1) -> changedProperty.setValue(true));
-    }
-    private void showSaveSnippetDialog() {
-        String value = mainEditor.selectedTextProperty().getValue();
-        try {
-            SaveSnippetComponent dialog=new SaveSnippetComponent(value);
-            dialog.showSaveSnippetDialog();
-        } catch (IOException e) {
-            showErrorWarning("Could not save snippet");
-            throw new RuntimeException(e);
-        }
-        showSuccess("Snippet Saved");
-    }
-    private void showSnippetDialog() {
-        InsertSnippetComponent snip=new InsertSnippetComponent();
-        int caretPosition = mainEditor.getCaretPosition();
-        Snippet snippet = snip.showSnippetDialog();
-        mainEditor.insertText(caretPosition,snippet.content());
-    }
-
-    /**
-     *
-     * @return The file URI
-     *
-     */
-    private URI getFileURI() throws URISyntaxException {
-        String protocol="file://";
-        return new URI(protocol+editingFileProperty.get().getAbsolutePath());
-    }
-    private void writeToFile(String s) throws URISyntaxException, IOException {
-        URI fileURI = getFileURI();
-        Files.writeString(Path.of(fileURI),s);
+//        mainEditor.textProperty().addListener((observableValue, s, t1) -> changedProperty.setValue(true));
     }
 
     public void setAccelerators(Scene scene){
         scene.getAccelerators()
                 .put(applyStyleKC,()->applyButton.fire());
         scene.getAccelerators()
-                .put(saveAsKC,()->saveButton.fire());
-    }
-
-    private void loadTemplate(String template) {
-        File f=new File(Objects.requireNonNull(getClass()
-                .getResource(AppState.TEMPLATE_FOLDER + File.separator + template + ".css")).getFile());
-        if(f.exists()){
-            try {
-                List<String> strings = Files.readAllLines(Path.of(f.toURI()));
-                strings.forEach((s -> mainEditor.appendText(s+"\n")));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private String resolveTemplate(String string) {
-        final String regex = "(?=[A-Z][a-z])";
-        final String subst = "-";
-        final Pattern pattern = Pattern.compile(regex);
-        final Matcher matcher = pattern.matcher(string);
-        // The substituted value will be contained in the result variable
-        final String result = matcher.replaceAll(subst);
-        return result.toLowerCase().substring(1);
+                .put(saveAsKC,()-> {
+                    try {
+                        saveAsStyle();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 
     public void undo(){
-        mainEditor.undo();
+        activeEditor.get().undo();
     }
     public void redo(){
-        mainEditor.redo();
+        activeEditor.get().redo();
     }
     public void saveAsStyle() throws IOException {
 
@@ -217,61 +147,16 @@ public class FXCssController {
         chooser.setTitle("Save file");
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Css files","*.css"));
         File file = chooser.showSaveDialog(mainStage);
-        if(file!=null){
-            if(!file.exists())
-                if(!file.createNewFile()) {
-                    showErrorWarning("Cannot create file "+file.getName()+"\n at "+file.getPath());
-                    throw new RuntimeException("Cannot create the file " + file.getName());
-                }
-            String text = mainEditor.getText();
-            editingFileProperty.setValue(file);
-            try {
-                writeToFile(text);
-            } catch (URISyntaxException e) {
-                showErrorWarning("URI Location is not valid\n"+e.getMessage());
-                throw new RuntimeException(e);
-            }
+        activeEditor.get().saveToFile(file);
 
-        }
     }
     public void applyStyle() throws IOException, URISyntaxException {
-        String text = mainEditor.getText();
-        URI fileURI=getFileURI();
-        URL url = fileURI.toURL();
-        if(changedProperty.get()) {
-            Files.writeString(Path.of(fileURI), text);
-            components.getStylesheets().clear();
-            components.getStylesheets().add(url.toExternalForm());
-        }
+        URL stylesheet = activeEditor.get().getStylesheet();
+        containerPane.getStylesheets().remove(stylesheet.toExternalForm());
+        containerPane.getStylesheets().add(stylesheet.toExternalForm());
     }
     public void setState(AppState state) {
         this.state=state;
-    }
-    private void loadFile(File file) throws IOException {
-        List<String> strings = Files.readAllLines(Path.of(file.getPath()));
-        strings.forEach((s)->mainEditor.appendText(s+"\n"));
-    }
-    private void initEditor(){
-        if(components!=null) {
-            //clear styles
-            components.getStylesheets().clear();
-            //refresh editor
-            mainEditor.clear();
-        }
-        File f=new File(AppState.TEMP_FILE_PATH);
-        if(f.exists()) {
-            f.delete();
-        }
-        try {
-            boolean newFile = f.createNewFile();
-            if(!newFile) {
-                showErrorWarning("Could not create temp file");
-            }
-        } catch (IOException e) {
-            showErrorWarning("Could not create new file");
-            throw new RuntimeException(e);
-        }
-        editingFileProperty.set(f);
     }
 
     /***
@@ -279,7 +164,7 @@ public class FXCssController {
      *
      **/
     public void close() {
-        System.exit(0);
+        Platform.exit();
     }
     public void openStyle() {
         FileChooser fileChooser=new FileChooser();
@@ -287,18 +172,38 @@ public class FXCssController {
         fileChooser.getExtensionFilters()
                 .add(new FileChooser.ExtensionFilter("CSS","*.css"));
         File file = fileChooser.showOpenDialog(state.getMainStage());
-        editingFileProperty.setValue(file);
+
+        CodeEditorTab tab=new CodeEditorTab(file);
+        editorContainerTabPane.getTabs().add(tab);
+        editorContainerTabPane.getSelectionModel().select(tab);
+//            activeEditor.get().setFile(file);
     }
     public void newStyle(){
         if(!savedProperty.get()){
-            try {
-                saveAsStyle();
-            } catch (IOException e) {
-                showErrorWarning("Could not save to file");
-                throw new RuntimeException(e);
+            Alert confirmation=new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType saveFileFirst=new ButtonType("Save First", ButtonBar.ButtonData.YES);
+            ButtonType proceedAnyway=new ButtonType("Open new anyway",ButtonBar.ButtonData.NO);
+            ButtonType cancel=new ButtonType("Cancel save",ButtonBar.ButtonData.CANCEL_CLOSE);
+            confirmation.getButtonTypes().addAll(saveFileFirst,proceedAnyway,cancel);
+
+            confirmation.setContentText("Do you want to save the current file?");
+            Optional<ButtonType> buttonType = confirmation.showAndWait();
+            if(buttonType.isEmpty()) return;
+            ButtonBar.ButtonData buttonData = buttonType.get().getButtonData();
+
+            if(buttonData==ButtonBar.ButtonData.CANCEL_CLOSE) return;
+            if(buttonData== ButtonBar.ButtonData.YES) {
+                try {
+                    saveAsStyle();
+                } catch (IOException e) {
+                    showErrorWarning("Could not save to file");
+                    throw new RuntimeException(e);
+                }
             }
         }
-        initEditor();
+        CodeEditorTab tab=new CodeEditorTab();
+        editorContainerTabPane.getTabs().add(tab);
+
     }
     public void showAbout(){
         HelpComponent help=new HelpComponent();
@@ -311,12 +216,44 @@ public class FXCssController {
                 .darkStyle()
                 .showError();
     }
+    private void showErrorWarning(String message, Exception e) {
+        String content= message + "\nException thrown:"+e.getMessage()+"\n"+
+                e.getClass()+" "+e.getCause();
+        showErrorWarning(content);
+
+    }
     private void showSuccess(String message){
         Notifications.create()
                 .title("Success")
                 .text(message)
                 .darkStyle()
                 .showInformation();
+
+    }
+    public void loadFXML()   {
+        FileChooser chooser=new FileChooser();
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(
+                "FXML","*.fxml"
+        ));
+        fxmlFileProperty.setValue(chooser.showOpenDialog(state.getMainStage()));
+    }
+
+
+    public void reloadFXML() throws IOException {
+        Task<Void> t= new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                if (!fxmlFileProperty.isNull().get()) {
+                    FXMLLoader loader = new FXMLLoader(new URL("file://" + fxmlFileProperty.get().getAbsolutePath()));
+                    Parent fxmlContent = loader.load();
+                    Platform.runLater(() -> containerPane.getChildren().add(fxmlContent));
+                }
+                return null;
+            }
+        };
+
+        Executors.newSingleThreadExecutor().execute(t);
 
     }
 }
