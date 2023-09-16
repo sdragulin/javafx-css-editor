@@ -10,11 +10,14 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
@@ -24,8 +27,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
 
 public class FXCssController {
     public TitledPane containerTitledPane;
@@ -43,10 +47,14 @@ public class FXCssController {
     public MenuItem openSheetMenuItem;
     public MenuItem newSheetMenuItem;
     public MenuItem aboutMenuItem;
-    public AnchorPane containerPane;
+    public StackPane containerPane;
     public Button loadFXMLButton;
     public Button reloadFXMLButton;
     public TabPane editorContainerTabPane;
+    public ScrollPane containerScroll;
+    public Group containerGroup;
+    public MenuItem reloadStyleMenuItem;
+    public VBox mainContainer;
     private AppState state;
     private final ObjectProperty<File> fxmlFileProperty=new SimpleObjectProperty<>();
 
@@ -68,6 +76,10 @@ public class FXCssController {
     public void initialize(){
         reloadFXMLButton.setDisable(true);
         reloadFXMLButton.disableProperty().bind(fxmlFileProperty.isNull());
+        components=new ElementComponents();
+        containerGroup.getChildren().add(components);
+        containerPane.setAlignment(Pos.CENTER);
+
 
         editorContainerTabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, tab, t1) -> {
             if(!(t1 instanceof CodeEditorTab))
@@ -78,7 +90,7 @@ public class FXCssController {
         fxmlFileProperty.addListener((observableValue, file, t1) -> {
             if(t1==null) {
                 components = new ElementComponents();
-                containerPane.getChildren().add(components);
+                containerGroup.getChildren().add(components);
             }else{
                 try {
                     reloadFXML();
@@ -114,7 +126,8 @@ public class FXCssController {
                 throw new RuntimeException(e);
             }
         });
-//        mainEditor.textProperty().addListener((observableValue, s, t1) -> changedProperty.setValue(true));
+        containerScroll.setFitToWidth(true);
+        containerScroll.setFitToHeight(true);
     }
 
     public void setAccelerators(Scene scene){
@@ -150,8 +163,8 @@ public class FXCssController {
     }
     public void applyStyle() throws IOException, URISyntaxException {
         URL stylesheet = activeEditor.get().getStylesheet();
-        containerPane.getStylesheets().remove(stylesheet.toExternalForm());
-        containerPane.getStylesheets().add(stylesheet.toExternalForm());
+        containerGroup.getStylesheets().remove(stylesheet.toExternalForm());
+        containerGroup.getStylesheets().add(stylesheet.toExternalForm());
     }
     public void setState(AppState state) {
         this.state=state;
@@ -174,7 +187,6 @@ public class FXCssController {
         CodeEditorTab tab=new CodeEditorTab(file);
         editorContainerTabPane.getTabs().add(tab);
         editorContainerTabPane.getSelectionModel().select(tab);
-//            activeEditor.get().setFile(file);
     }
     public void newStyle(){
         if(!savedProperty.get()){
@@ -245,13 +257,29 @@ public class FXCssController {
                 if (!fxmlFileProperty.isNull().get()) {
                     FXMLLoader loader = new FXMLLoader(new URL("file://" + fxmlFileProperty.get().getAbsolutePath()));
                     Parent fxmlContent = loader.load();
-                    Platform.runLater(() -> containerPane.getChildren().add(fxmlContent));
+
+                    Platform.runLater(() -> {
+
+                        containerGroup.getChildren().clear();
+                        containerGroup.getChildren().add(fxmlContent);
+
+                    });
                 }
                 return null;
             }
         };
+        t.setOnFailed((e)->{
+            Throwable exception = t.getException();
+            exception.printStackTrace(System.out);
+        });
 
-        Executors.newSingleThreadExecutor().execute(t);
+        AppState.getInstance().execute(t);
 
+    }
+
+    public void reloadStyle() {
+        List<String> l=new ArrayList<>(mainContainer.getStylesheets());
+        mainContainer.getStylesheets().clear();
+        mainContainer.getStylesheets().addAll(l.toArray(new String[0]));
     }
 }

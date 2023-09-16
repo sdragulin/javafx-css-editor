@@ -12,3 +12,27 @@
     -fx-background-radius:0;
 	-fx-font-size:10;
 }
+.insert-snippet-dialog{
+	-fx-font-family: Arial;
+	-fx-padding:  5px 5px 5px 5px;
+	-fx-margin: 5px 5px 5px 5px;
+	-fx-pref-width: 150px;
+	-fx-font-size:10px;
+}
+.insert-snippet-dialog .header-text-flow{
+	-fx-font-size:12px;
+	-fx-font-weight:bold;
+}
+.insert-snippet-dialog .description-text-flow{
+	-fx-text-fill: -fx-ternary-color;
+	-fx-font-style: italic;
+}
+.insert-snippet-dialog .content-text-flow{
+}
+.list-cell:odd{
+	-fx-background-color: #EEEEEE;
+}
+.list-cell:odd:hover{
+	-fx-text-fill: black;
+
+}

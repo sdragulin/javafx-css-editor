@@ -5,35 +5,33 @@ import javafx.beans.property.ObjectProperty;
 
 import javafx.beans.property.SimpleObjectProperty;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.List;
 
 public class InsertSnippetComponent extends AnchorPane {
     public TextField searchField;
     public ListView<Snippet> snippetListView;
-
+    private FilteredList<Snippet> filteredData;
     public Button closeButton;
     public Button insertButton;
 
     public InsertSnippetComponent(){
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("snippetDialog.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("insertSnippetDialog.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         try {
@@ -63,12 +61,23 @@ public class InsertSnippetComponent extends AnchorPane {
             }
         });
         try {
-            List<Snippet> snippet = SnippetManager.getInstance().findSnippet("", "");
-            snippetListView.getItems().addAll(snippet);
+            ObservableList<Snippet> snippets = FXCollections.observableArrayList(SnippetManager.getInstance().findSnippet("", ""));
+            filteredData=new FilteredList<>(snippets, s->true);
+            searchField.textProperty().addListener((observableValue, s, t1) -> {
+                if(t1!=null&&!t1.isBlank()){
+                    System.out.println(t1);
+                    filteredData.setPredicate(snippet -> snippet.name().contains(t1)||
+                            snippet.content().contains(searchField.getText())
+                    ||snippet.description().contains(searchField.getText()));
+                }
+            });
+            snippetListView.setItems(filteredData);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         insertButton.disableProperty().bind(Bindings.not(snippetListView.getSelectionModel().selectedItemProperty().isNotNull()));
+
     }
     private final ObjectProperty<Snippet> selectedObject=new SimpleObjectProperty<>();
     public Snippet showSnippetDialog(){
@@ -76,6 +85,8 @@ public class InsertSnippetComponent extends AnchorPane {
         Scene scene=new Scene(this,this.getPrefWidth(),this.getPrefHeight());
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+
         insertButton.setOnAction(actionEvent -> {
             selectedObject.setValue(snippetListView.getSelectionModel().getSelectedItem());
             stage.close();
@@ -84,12 +95,14 @@ public class InsertSnippetComponent extends AnchorPane {
         stage.showAndWait();
         return selectedObject.get();
     }
-    private static class SnippetListCell extends VBox {
+    private static class SnippetListCell extends AnchorPane {
 
-        private TextFlow name;
-        private TextFlow description;
+        private TextFlow headerFlow;
+        private Text name;
+        private Text description;
+
         private TextFlow   content;
-
+        private GridPane gridPane;
         public SnippetListCell(Snippet snip){
             super();
             init();
@@ -98,29 +111,44 @@ public class InsertSnippetComponent extends AnchorPane {
             setContent(snip.content());
         }
         public void init(){
-
-            name=new TextFlow();
-            description=new TextFlow();
+            this.getStyleClass().add("insert-snippet-dialog");
+            headerFlow =new TextFlow();
+            name=new Text();
+            headerFlow.getStyleClass().add("header-text-flow");
+            name.getStyleClass().add("name-text-flow");
+            description=new Text();
+            description.getStyleClass().add("description-text-flow");
+            headerFlow.getChildren().add(name);
+            headerFlow.getChildren().add(description);
             content=new TextFlow();
+            content.getStyleClass().add("content-text-flow");
 
-            this.setSpacing(10);
-            VBox.setVgrow(content, Priority.ALWAYS);
-            HBox headerBox=new HBox();
-            Separator sep=new Separator();
+            gridPane=new GridPane();
+            this.getChildren().addAll(gridPane);
 
-            headerBox.getChildren().addAll(name,sep, description);
-            headerBox.setSpacing(2);
-            headerBox.setAlignment(Pos.CENTER);
-            this.getChildren().addAll(headerBox,content);
+            AnchorPane.setTopAnchor(gridPane,0.0);
+            AnchorPane.setBottomAnchor(gridPane,0.0);
+            AnchorPane.setLeftAnchor(gridPane,0.0);
+            AnchorPane.setRightAnchor(gridPane,0.0);
+
+            ColumnConstraints c1=new ColumnConstraints();
+            c1.setFillWidth(true);
+            c1.setHalignment(HPos.LEFT);
+
+            gridPane.getColumnConstraints().add(c1);
+            gridPane.addColumn(0, headerFlow,content);
+
+            GridPane.setColumnSpan(content,2);
+
         }
 
         public void setName(String name){
             Text nameT=new Text(name);
-            this.name.getChildren().add(nameT);
+            this.headerFlow.getChildren().add(nameT);
         }
         public void setDescription(String s){
             Text c=new Text(s);
-            this.description.getChildren().add(c);
+            this.headerFlow.getChildren().add(c);
         }
         public void setContent(String s){
             Text c=new Text(s);

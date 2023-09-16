@@ -20,9 +20,15 @@ public class FXCssApplication extends Application {
         stage.setScene(scene);
         stage.show();
         FXCssController controller = fxmlLoader.getController();
-        
+
         controller.setState(state);
         controller.setAccelerators(scene);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        AppState.getInstance().shutdown();
     }
 
     public static void main(String[] args) {

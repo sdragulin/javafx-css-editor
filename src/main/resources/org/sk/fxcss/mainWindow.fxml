@@ -5,9 +5,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
-<?import org.sk.fxcss.*?>
 
-<VBox prefHeight="495.0" prefWidth="617.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sk.fxcss.FXCssController">
+<?import javafx.scene.Group?>
+<VBox fx:id="mainContainer" prefHeight="800" prefWidth="800.0" stylesheets="@application.css"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.sk.fxcss.FXCssController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
             <MenuItem fx:id="newSheetMenuItem" mnemonicParsing="false" onAction="#newStyle" text="New" />
@@ -16,6 +18,7 @@
             a stylesheet we need to save the file first;-->
             <!--<MenuItem mnemonicParsing="false" text="Save" onAction="#saveAsStyle"/>-->
             <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsStyle" text="Save As" />
+            <MenuItem fx:id="reloadStyleMenuItem" mnemonicParsing="false" onAction="#reloadStyle" text="reloadStyleMenu" />
             <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#close" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -76,21 +79,26 @@
             </ComboBox>
 
         </ToolBar>
-    <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.23433583959899748" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="195.0">
          <TabPane fx:id="editorContainerTabPane" prefHeight="426.0" prefWidth="180.0" side="LEFT" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
          </TabPane>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <TitledPane fx:id="containerTitledPane" animated="false" collapsible="false" prefHeight="426.0" prefWidth="429.0" text="Container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <AnchorPane fx:id="containerPane">
-                    <ScrollPane layoutX="10.399999618530273" layoutY="10.399999618530273" prefHeight="556.0"
-                                prefWidth="923.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <ElementComponents/>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0">
+            <TitledPane fx:id="containerTitledPane" animated="false" collapsible="false" text="Container"
+                        prefWidth="900.0"
+                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ScrollPane fx:id="containerScroll" prefHeight="556.0" prefWidth="923.0">
+                            <StackPane fx:id="containerPane" prefHeight="340.0" prefWidth="600.0"
+                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <Group fx:id="containerGroup">
+
+
+                                </Group>
+                            </StackPane>
                     </ScrollPane>
-                </AnchorPane>
             <graphic>
                <ButtonBar fx:id="containerButtonBar" prefHeight="40.0" prefWidth="200.0">
                   <buttons>

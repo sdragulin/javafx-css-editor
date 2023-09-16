@@ -42,7 +42,6 @@ public class CodeEditorTab extends Tab {
 
 
     private final BooleanProperty changedProperty=new SimpleBooleanProperty(true);
-    private final BooleanProperty savedProperty =new SimpleBooleanProperty(false);
     private File file;
     public CodeEditorTab(File f){
         super();
@@ -157,6 +156,7 @@ public class CodeEditorTab extends Tab {
         saveSnippetMenu.setOnAction((e)->showSaveSnippetDialog());
         saveSnippetMenu.setAccelerator(saveSnippetKC);
         saveSnippetMenu.setDisable(true);
+
         mainEditor.selectedTextProperty()
                 .addListener((observableValue, s, t1) ->
                         saveSnippetMenu.setDisable(t1==null||t1.isBlank()));
@@ -170,7 +170,8 @@ public class CodeEditorTab extends Tab {
         InsertSnippetComponent snip=new InsertSnippetComponent();
         int caretPosition = mainEditor.getCaretPosition();
         Snippet snippet = snip.showSnippetDialog();
-        mainEditor.insertText(caretPosition,snippet.content());
+        if(snippet!=null)
+            mainEditor.insertText(caretPosition,snippet.content());
     }
     private void showSaveSnippetDialog() {
         String value = mainEditor.selectedTextProperty().getValue();
