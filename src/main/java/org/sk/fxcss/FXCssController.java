@@ -263,6 +263,7 @@ public class FXCssController {
                     String absolutePath = fxmlFileProperty.get().getAbsolutePath();
                     Faker faker=new Faker();
                     File f=File.createTempFile(faker.number().randomNumber()+"tmp",".fxml");
+                    f.deleteOnExit();
                     String content = Files.readString(Path.of(absolutePath));
                     Pattern pattern=Pattern.compile("(fx:controller=\".+\")|(onAction=\"#.+\")");
 
