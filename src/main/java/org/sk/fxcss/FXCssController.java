@@ -1,5 +1,6 @@
 package org.sk.fxcss;
 
+import com.github.javafaker.Faker;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -27,9 +28,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FXCssController {
     public TitledPane containerTitledPane;
@@ -255,7 +260,16 @@ public class FXCssController {
             @Override
             protected Void call() throws Exception {
                 if (!fxmlFileProperty.isNull().get()) {
-                    FXMLLoader loader = new FXMLLoader(new URL("file://" + fxmlFileProperty.get().getAbsolutePath()));
+                    String absolutePath = fxmlFileProperty.get().getAbsolutePath();
+                    Faker faker=new Faker();
+                    File f=File.createTempFile(faker.number().randomNumber()+"tmp",".fxml");
+                    String content = Files.readString(Path.of(absolutePath));
+                    Pattern pattern=Pattern.compile("(fx:controller=\".+\")|(onAction=\"#.+\")");
+
+                    Matcher matcher = pattern.matcher(content);
+                    String s = matcher.replaceAll("");
+                    Files.writeString(f.toPath(),s);
+                    FXMLLoader loader = new FXMLLoader(new URL("file://" + f.getAbsolutePath()));
                     Parent fxmlContent = loader.load();
 
                     Platform.runLater(() -> {
